@@ -22,6 +22,18 @@ public class Customer {
         this.firstName = firstName;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
