@@ -1,8 +1,8 @@
 package ch.burak;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -31,14 +31,13 @@ public class CustomerResource {
         repo.save(customer);
         return customer;
     }
+
     @RequestMapping
     @GetMapping("/find")
-    public Customer findCustomer(@RequestParam(value = "name") String name) {
-        if(repo.findByFirstName(name) == null){
-            throw new ResourceNotFoundException();
-//            return new Customer("404");
-        }
-        return repo.findByFirstName(name);
+    public ResponseEntity<Customer> findCustomer(@RequestParam(value = "name") String name) {
+        return repo.findByFirstName(name)
+                   .map(ResponseEntity::ok)
+                   .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
     }
 
 }
