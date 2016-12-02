@@ -21,23 +21,22 @@ public class CustomerResource {
     }
 
     @GetMapping("/all")
-    public Collection<Customer> getAllCustomers() {
-        return repo.findAll();
+    public ResponseEntity<Collection<Customer>> getAllCustomers() {
+        return ResponseEntity.ok(repo.findAll());
     }
 
     @GetMapping("/create")
-    public Customer createCustomer(@RequestParam(value = "name") String name) {
+    public ResponseEntity<Customer> createCustomer(@RequestParam(value = "name") String name) {
         Customer customer = new Customer(name);
         repo.save(customer);
-        return customer;
+        return ResponseEntity.ok(customer);
     }
 
-    @RequestMapping
     @GetMapping("/find")
     public ResponseEntity<Customer> findCustomer(@RequestParam(value = "name") String name) {
         return repo.findByFirstName(name)
-                   .map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
     }
 
 }
