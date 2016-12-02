@@ -25,7 +25,7 @@ public class CustomerResource {
         return ResponseEntity.ok(repo.findAll());
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Customer> createCustomer(@RequestParam(value = "name") String name) {
         Customer customer = new Customer(name);
         repo.save(customer);
