@@ -10,11 +10,16 @@
 
 <body>
 <H1>Customers</H1>
-<div th:each="c : ${customers}">
-    <div>
-        <b th:text="${c.id}">ID</b> -
-        <span th:text="${c.firstName}">Reservation Name</span>
-    </div>
-</div>
+
+<table style="border: 2px solid red">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    <tr th:each="c : ${customers}">
+        <td><b th:text="${c.id}">ID</b></td>
+        <td><span th:text="${c.firstName}">Reservation Name</span></td>
+    </tr>
+</table>
 </body>
 </html>
