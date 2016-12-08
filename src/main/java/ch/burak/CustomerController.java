@@ -36,13 +36,13 @@ public class CustomerController {
         return "customers";
     }
 
-    @GetMapping("/customer")
+    @GetMapping("/customerForm")
     String customerForm(Model model){
         model.addAttribute("customer", new Customer());
-        return "customer";
+        return "customerForm";
     }
 
-    @PostMapping("/customer")
+    @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
         Customer c = repo.save(customer);
         return "display";
