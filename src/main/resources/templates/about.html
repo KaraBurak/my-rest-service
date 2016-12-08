@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xmlsn="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlsn:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Bootiful Reservations </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<H1>Developers of the app</H1>
+<div th:each="developer : ${developers}">
+    <div>
+        <span th:text="${developer}">Reservation Name</span>
+    </div>
+</div>
+</body>
+</html>

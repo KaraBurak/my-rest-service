@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
+ * This is a Spring MVC REST-controller.
+ *
+ * REST ENDPOINT!!!! NOT A WEBSITE CONTROLLER!!!!! JUST FOR COMPUTERS!!!!!
+ *
  * @author Burak Kara
  */
-@RestController
+@RestController()
 public class CustomerResource {
 
     private final CustomerRepository repo;
@@ -20,19 +24,19 @@ public class CustomerResource {
         this.repo = repo;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/api/customer")
     public ResponseEntity<Collection<Customer>> getAllCustomers() {
         return ResponseEntity.ok(repo.findAll());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/api/customer")
     public ResponseEntity<Customer> createCustomer(@RequestParam(value = "name") String name) {
         Customer customer = new Customer(name);
         repo.save(customer);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/api/customer/find")
     public ResponseEntity<Customer> findCustomer(@RequestParam(value = "name") String name) {
         return repo.findByFirstName(name)
                 .map(ResponseEntity::ok)
