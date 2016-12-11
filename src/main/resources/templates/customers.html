@@ -20,6 +20,7 @@
         <td><b th:text="${c.id}">ID</b></td>
         <td><span th:text="${c.firstName}">Reservation Name</span></td>
         <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
+        <td><a th:href="@{/editCustomer/} + ${c.id}" >Edit Customer </a></td>
     </tr>
 </table>
 </body>
