@@ -44,7 +44,9 @@ public class CustomerController {
 
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
-        Customer c = repo.save(customer);
+        repo.save(customer);
+        System.out.println(customer.getFirstName());
+
         return "display";
     }
 
@@ -52,6 +54,14 @@ public class CustomerController {
     String about(Model model) {
         model.addAttribute("developers", Arrays.asList("Hasan Kara", "Burak"));
         return "about";
+    }
+
+    @RequestMapping("/deleteCustomer/{id}")
+    String customerDelete(@PathVariable("id") Long id){
+        Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+        repo.delete(customer);
+        System.out.println("Deleted");
+        return "redirect:/index";
     }
 
 }
