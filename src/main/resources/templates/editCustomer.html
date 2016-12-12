@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xmlsn="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlsn:th="http://www.thymeleaf.org">
+<head>
+    <title>fuuuuu </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>edit</h1>
+<p th:text="'id: ' + ${customer.id}" />
+<p th:text="'Name: ' + ${customer.firstName}" />
+
+<form action="#" th:action="@{/updateCustomer/} + ${customer.id}" th:object= "${customer}" method="post">
+    <p>Name: <input type="text" th:field="*{firstName}" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+</html>
