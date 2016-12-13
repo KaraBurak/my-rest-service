@@ -12,13 +12,19 @@
 <H1>Customers</H1>
 
 <table style="border: 2px solid red">
+
+
     <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Created on:</th>
+        <th>Edited on:</th>
     </tr>
     <tr th:each="c : ${customers}">
         <td><b th:text="${c.id}">ID</b></td>
         <td><span th:text="${c.firstName}">Reservation Name</span></td>
+        <td><span th:text="${c.creationDate}">Created On</span></td>
+        <td><span th:text="${c.updatedDate}">Edited On</span></td>
         <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
         <td><a th:href="@{/editCustomer/} + ${c.id}" >Edit Customer </a></td>
     </tr>

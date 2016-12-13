@@ -10,6 +10,7 @@
 <h1>edit</h1>
 <p th:text="'id: ' + ${customer.id}" />
 <p th:text="'Name: ' + ${customer.firstName}" />
+<p th:text="'Created on:' + ${customer.creationDate}" />
 
 <form action="#" th:action="@{/updateCustomer/} + ${customer.id}" th:object= "${customer}" method="post">
     <p>Name: <input type="text" th:field="*{firstName}" /></p>

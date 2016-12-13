@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * This is a Spring MVC REST-controller.
@@ -31,7 +32,7 @@ public class CustomerResource {
 
     @PostMapping("/api/customer")
     public ResponseEntity<Customer> createCustomer(@RequestParam(value = "name") String name) {
-        Customer customer = new Customer(name);
+        Customer customer = new Customer(name, new Date());
         repo.save(customer);
         return ResponseEntity.ok(customer);
     }
@@ -42,5 +43,6 @@ public class CustomerResource {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
     }
+
 
 }

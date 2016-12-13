@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * This is a Spring MVC controller for Web-Pages.
@@ -44,6 +45,7 @@ public class CustomerController {
 
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
+        customer.setCreationDate(new Date());
         repo.save(customer);
         System.out.println(customer.getFirstName());
 
@@ -66,7 +68,7 @@ public class CustomerController {
 
     @RequestMapping("/updateCustomer/{id}")
     String update(@PathVariable("id") Long id, Customer customer){
-
+        customer.setUpdatedDate(new Date());
         repo.save(customer);
         return "redirect:/index";
     }
@@ -80,5 +82,6 @@ public class CustomerController {
 //        repo.save(customer);
         return "editCustomer";
     }
+
 
 }
