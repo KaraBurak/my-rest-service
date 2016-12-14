@@ -45,7 +45,6 @@ public class CustomerController {
 
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
-        customer.setCreationDate(new Date());
         repo.save(customer);
         System.out.println(customer.getFirstName());
 
@@ -68,7 +67,6 @@ public class CustomerController {
 
     @RequestMapping("/updateCustomer/{id}")
     String update(@PathVariable("id") Long id, Customer customer){
-        customer.setUpdatedDate(new Date());
         repo.save(customer);
         return "redirect:/index";
     }

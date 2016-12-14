@@ -1,9 +1,6 @@
 package ch.burak;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -16,39 +13,56 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
-    private Date creationDate;
-    private Date updatedDate;
+    private String operation;
+    @Column(nullable = false, updatable = false)
+    private long creationDate;
+    private long updatedDate;
 
     protected Customer(){}
 
-    public Customer(String firstName, Date date){
+    public Customer(String firstName){
         this.firstName = firstName;
-        this.creationDate = date;
-        this.updatedDate = date;
+    }
+
+    @PrePersist
+    public void onPrePersist() {
+        audit("INSERT");
+        setCreationDate(new Date().getTime());
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+        audit("UPDATE");
+    }
+
+    @PreRemove
+    public void onPreRemove() {
+        audit("DELETE");
+    }
+
+    private void audit(String operation) {
+        setOperation(operation);
+        setUpdatedDate(new Date().getTime());
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getCreationDate() {
+        return creationDate;
     }
 
-    public void setUpdatedDate(Date date){
-        this.updatedDate = date;
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public void setCreationDate(Date date){
-        this.creationDate = date;
+    public long getUpdatedDate() {
+        return updatedDate;
     }
 
-    public Date getCreationDate(){
-        return this.creationDate;
-    }
-
-    public Date getUpdatedDate(){
-        return this.updatedDate;
+    public void setUpdatedDate(long updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public String getFirstName() {
@@ -57,6 +71,14 @@ public class Customer {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 
     @Override

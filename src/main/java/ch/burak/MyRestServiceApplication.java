@@ -17,9 +17,9 @@ public class MyRestServiceApplication {
 	@Bean
     CommandLineRunner initDb(CustomerRepository repo) {
 	    return strings -> {
-            repo.save(new Customer("Burak", new Date()));
-            repo.save(new Customer("Hasan", new Date()));
-            repo.save(new Customer("Urs", new Date()));
+            repo.save(new Customer("Burak"));
+            repo.save(new Customer("Hasan"));
+            repo.save(new Customer("Urs"));
         };
     }
 }
