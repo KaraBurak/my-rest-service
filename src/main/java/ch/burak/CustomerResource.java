@@ -32,7 +32,7 @@ public class CustomerResource {
 
     @PostMapping("/api/customer")
     public ResponseEntity<Customer> createCustomer(@RequestParam(value = "name") String name) {
-        Customer customer = new Customer(name, new Date());
+        Customer customer = new Customer(name);
         repo.save(customer);
         return ResponseEntity.ok(customer);
     }

@@ -23,8 +23,8 @@
     <tr th:each="c : ${customers}">
         <td><b th:text="${c.id}">ID</b></td>
         <td><span th:text="${c.firstName}">Reservation Name</span></td>
-        <td><span th:text="${c.creationDate}">Created On</span></td>
-        <td><span th:text="${c.updatedDate}">Edited On</span></td>
+        <td><span th:text="${#dates.format(new java.util.Date(c.creationDate), 'yyyy-MM-dd HH:mm:ss')}">Created On</span></td>
+        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'yyyy-MM-dd HH:mm:ss')}">Edited On</span></td>
         <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
         <td><a th:href="@{/editCustomer/} + ${c.id}" >Edit Customer </a></td>
     </tr>
