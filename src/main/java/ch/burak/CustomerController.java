@@ -66,7 +66,11 @@ public class CustomerController {
     }
 
     @RequestMapping("/updateCustomer/{id}")
-    String update(@PathVariable("id") Long id, Customer customer){
+    String update(@PathVariable("id") Long id, Customer editedCustomer){
+
+        Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+        customer.setFirstName(editedCustomer.getFirstName());
+
         repo.save(customer);
         return "redirect:/index";
     }
@@ -77,7 +81,6 @@ public class CustomerController {
         model.addAttribute("customer",customer);
         System.out.println(customer.getFirstName());
         System.out.println("edit");
-//        repo.save(customer);
         return "editCustomer";
     }
 
