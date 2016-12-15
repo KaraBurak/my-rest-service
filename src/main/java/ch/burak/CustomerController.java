@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This is a Spring MVC controller for Web-Pages.
@@ -33,7 +32,6 @@ public class CustomerController {
     @GetMapping("/index")
     String index(Model model) {
         model.addAttribute("customers", this.repo.findAll());
-
         return "customers";
     }
 
@@ -83,6 +81,15 @@ public class CustomerController {
         System.out.println("edit");
         return "editCustomer";
     }
+
+    @RequestMapping("/findCustomer")
+    String findCustomer(@RequestParam("searchName") String searchName, Model model){
+        List<Customer> customers = repo.findAllByFirstName(searchName);
+        model.addAttribute("customers", customers);
+        return "foundCustomer";
+    }
+
+
 
 
 }

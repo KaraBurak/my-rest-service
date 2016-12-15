@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xmlsn="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml"
       xmlsn:th="http://www.thymeleaf.org">
@@ -7,19 +7,13 @@
     <title>Bootiful Reservations </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-
 <body>
-<H1>Customers</H1>
 
-<table style="border: 2px solid red">
+<div th:if="${#lists.isEmpty(customers)}">
+    No customers found
+</div>
 
-    <h2>Search for: </h2>
-    <form action="#" th:action="@{/findCustomer}"  method="post">
-        <p>Name: <input type="text" name="searchName" id="searchName" /></p>
-        <p><input type="submit" value="Submit" /></p>
-    </form>
-
-
+<table th:if="${not #lists.isEmpty(customers)}">
     <tr>
         <th>ID:</th>
         <th>Name:</th>
@@ -29,11 +23,15 @@
     <tr th:each="c : ${customers}">
         <td><b th:text="${c.id}">ID</b></td>
         <td><span th:text="${c.firstName}">Reservation Name</span></td>
-        <td><span th:text="${#dates.format(new java.util.Date(c.creationDate), 'yyyy-MM-dd HH:mm:ss')}">Created On</span></td>
-        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'yyyy-MM-dd HH:mm:ss')}">Edited On</span></td>
+        <td><span
+                th:text="${#dates.format(new java.util.Date(c.creationDate), 'yyyy-MM-dd HH:mm:ss')}">Created On</span>
+        </td>
+        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'yyyy-MM-dd HH:mm:ss')}">Edited On</span>
+        </td>
         <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
-        <td><a th:href="@{/editCustomer/} + ${c.id}" >Edit Customer </a></td>
+        <td><a th:href="@{/editCustomer/} + ${c.id}">Edit Customer </a></td>
     </tr>
 </table>
+
 </body>
 </html>
