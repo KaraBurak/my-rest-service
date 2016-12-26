@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is a Spring MVC REST-controller.
@@ -49,14 +50,9 @@ public class CustomerResource {
     public ResponseEntity<List<Customer>> searchCustomer(@RequestParam(value = "content") String name){
 
         List<Customer> allCustomers = repo.findAll();
-        List<Customer> allContains = new ArrayList<>();
-
-        for (Customer customer : allCustomers){
-            if(customer.getFirstName().contains(name)){
-                allContains.add(customer);
-                System.out.println(customer.getFirstName());
-            }
-        }
+        List<Customer> allContains = allCustomers.stream()
+                                                 .filter(customer -> customer.getFirstName().contains(name))
+                                                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(allContains);
 
