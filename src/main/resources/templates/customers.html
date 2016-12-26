@@ -4,20 +4,38 @@
       xmlsn:th="http://www.thymeleaf.org">
 
 <head>
+
     <title>Bootiful Reservations </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script th:inline="javascript">
+
+        function myFunction() {
+         var x = document.getElementById("myInput").value;
+
+         var i = document.createElement("img");
+         i.src = "/findCustomer?searchName=" + x;
+
+         /*var xhr = new XMLHttpRequest();
+         xhr.open('GET', "/findCustomer", true);
+         xhr.send(x);*/
+
+         }
+    </script>
 </head>
 
 <body>
 <H1>Customers</H1>
 
-<table style="border: 2px solid red">
+<table style="border: 2px solid red" class="search-table">
+
 
     <h2>Search for: </h2>
     <form action="#" th:action="@{/findCustomer}"  method="post">
-        <p>Name: <input type="text" name="searchName" id="searchName" /></p>
+        <p>Name: <input class ="searchName" oninput="myFunction()" type="text" name="searchName" id="myInput" /></p>
         <p><input type="submit" value="Submit" /></p>
     </form>
+
+
 
 
     <tr>

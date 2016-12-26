@@ -26,6 +26,7 @@ public class CustomerController {
 
     private final CustomerRepository repo;
 
+
     @Autowired
     public CustomerController(CustomerRepository repo) {
         this.repo = repo;
@@ -87,22 +88,23 @@ public class CustomerController {
     @RequestMapping("/findCustomer")
     String findCustomer(@RequestParam("searchName") String searchName, Model model){
 
+        System.out.println(searchName);
+
         List<Customer> allCustomers = repo.findAll();
         List<Customer> allContains = new ArrayList<>();
 
         for (Customer customer : allCustomers){
             if(customer.getFirstName().contains(searchName)){
                 allContains.add(customer);
-                System.out.println(customer.getFirstName());
             }
         }
 
+
 //        List<Customer> customers = repo.findAllByFirstName(searchName);
+//        document.getElementById("demo").innerHTML = "You wrote :" + x;
+
         model.addAttribute("customers", allContains);
-        return "foundCustomer";
+        return "customers";
     }
-
-
-
 
 }
