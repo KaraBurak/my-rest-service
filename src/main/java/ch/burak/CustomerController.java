@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This is a Spring MVC controller for Web-Pages.
@@ -84,8 +86,19 @@ public class CustomerController {
 
     @RequestMapping("/findCustomer")
     String findCustomer(@RequestParam("searchName") String searchName, Model model){
-        List<Customer> customers = repo.findAllByFirstName(searchName);
-        model.addAttribute("customers", customers);
+
+        List<Customer> allCustomers = repo.findAll();
+        List<Customer> allContains = new ArrayList<>();
+
+        for (Customer customer : allCustomers){
+            if(customer.getFirstName().contains(searchName)){
+                allContains.add(customer);
+                System.out.println(customer.getFirstName());
+            }
+        }
+
+//        List<Customer> customers = repo.findAllByFirstName(searchName);
+        model.addAttribute("customers", allContains);
         return "foundCustomer";
     }
 
