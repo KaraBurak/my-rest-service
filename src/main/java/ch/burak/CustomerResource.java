@@ -5,8 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 /**
  * This is a Spring MVC REST-controller.
@@ -42,6 +43,23 @@ public class CustomerResource {
         return repo.findByFirstName(name)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
+    }
+
+    @GetMapping("api/search")
+    public ResponseEntity<List<Customer>> searchCustomer(@RequestParam(value = "content") String name){
+
+        List<Customer> allCustomers = repo.findAll();
+        List<Customer> allContains = new ArrayList<>();
+
+        for (Customer customer : allCustomers){
+            if(customer.getFirstName().contains(name)){
+                allContains.add(customer);
+                System.out.println(customer.getFirstName());
+            }
+        }
+
+        return ResponseEntity.ok(allContains);
+
     }
 
 
