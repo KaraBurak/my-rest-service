@@ -30,11 +30,25 @@
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
                 var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
                 cell1.innerHTML = customer.id;
                 cell2.innerHTML = customer.firstName;
                 cell3.innerHTML = customer.creationDate;
                 cell4.innerHTML = customer.updatedDate;
+
+                addLink(cell5, '/deleteCustomer/', "Delete Customer", customer);
+                addLink(cell6, '/editCustomer/', "Edit Customer", customer);
             });
+        }
+
+        function addLink(cell, url, text, customer) {
+            var link = document.createElement("a");
+            var linkText = document.createTextNode(text);
+            link.appendChild(linkText);
+            link.setAttribute('title', "lugerwer");
+            link.setAttribute('href',url + customer.id);
+            cell.appendChild(link);
         }
 
         function httpGetAsync(theUrl, callback) {
@@ -83,5 +97,10 @@
         <td><a th:href="@{/editCustomer/} + ${c.id}">Edit Customer </a></td>
     </tr>
 </table>
+
+<div id="test">
+
+</div>
+
 </body>
 </html>
