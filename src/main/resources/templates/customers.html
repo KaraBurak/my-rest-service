@@ -12,7 +12,7 @@
 
         function myFunction(content) {
             console.log(content);
-            httpGetAsync("http://localhost:8080/api/search?content=" + content, myCallBack);
+            httpGetAsync("/api/search?content=" + content, myCallBack);
         }
 
         function myCallBack(response) {
