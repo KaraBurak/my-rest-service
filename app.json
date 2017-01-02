@@ -1,0 +1,7 @@
+{
+    "name": "my-rest-service",
+    "description": "my first rest-service",
+    "repository": "https://github.com/KaraBurak/my-rest-service",
+    "logo": "https://node-js-sample.herokuapp.com/node.png",
+    "keywords": ["spring", "java", "rest-service"]
+}
