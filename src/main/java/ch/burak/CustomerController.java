@@ -3,18 +3,13 @@ package ch.burak;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This is a Spring MVC controller for Web-Pages.
@@ -39,7 +34,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customerForm")
-    String customerForm(Model model){
+    String customerForm(Model model) {
         model.addAttribute("customer", new Customer());
         return "customerForm";
     }
@@ -59,7 +54,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/deleteCustomer/{id}")
-    String customerDelete(@PathVariable("id") Long id){
+    String customerDelete(@PathVariable("id") Long id) {
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
         repo.delete(customer);
         System.out.println("Deleted");
@@ -67,7 +62,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/updateCustomer/{id}")
-    String update(@PathVariable("id") Long id, Customer editedCustomer){
+    String update(@PathVariable("id") Long id, Customer editedCustomer) {
 
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
         customer.setFirstName(editedCustomer.getFirstName());
@@ -77,24 +72,24 @@ public class CustomerController {
     }
 
     @RequestMapping("/editCustomer/{id}")
-    String customerEdit(@PathVariable("id") Long id, Model model){
+    String customerEdit(@PathVariable("id") Long id, Model model) {
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
-        model.addAttribute("customer",customer);
+        model.addAttribute("customer", customer);
         System.out.println(customer.getFirstName());
         System.out.println("edit");
         return "editCustomer";
     }
 
     @RequestMapping("/findCustomer")
-    String findCustomer(@RequestParam("searchName") String searchName, Model model){
+    String findCustomer(@RequestParam("searchName") String searchName, Model model) {
 
         System.out.println(searchName);
 
         List<Customer> allCustomers = repo.findAll();
         List<Customer> allContains = new ArrayList<>();
 
-        for (Customer customer : allCustomers){
-            if(customer.getFirstName().contains(searchName)){
+        for (Customer customer : allCustomers) {
+            if (customer.getFirstName().contains(searchName)) {
                 allContains.add(customer);
             }
         }
