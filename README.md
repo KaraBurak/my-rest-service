@@ -3,3 +3,5 @@
 # Spring boot rest-service
 
 This is my first spring boot application. 
+
+You can check it out right here: https://polar-reef-95049.herokuapp.com/index .
