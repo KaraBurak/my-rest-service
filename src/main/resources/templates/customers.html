@@ -1,13 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xmlsn="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml"
+      th:include="navbarHeader :: page"
       xmlsn:th="http://www.thymeleaf.org">
 
+<div th:fragment="content">
 <head>
 
     <title>Bootiful Reservations </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap-jsf.css" />
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap-jsf.css"/>
+
+</head>
+
     <script th:inline="javascript">
 
         function myFunction(content) {
@@ -20,7 +25,7 @@
             var table = document.getElementById("customerTable");
 
             var length = table.rows.length - 1;
-            while(length > 0) {
+            while (length > 0) {
                 table.deleteRow(length);
                 length--;
             }
@@ -55,7 +60,7 @@
             var linkText = document.createTextNode(text);
             link.appendChild(linkText);
             link.setAttribute('title', "lugerwer");
-            link.setAttribute('href',url + customer.id);
+            link.setAttribute('href', url + customer.id);
             cell.appendChild(link);
         }
 
@@ -72,58 +77,39 @@
             xmlHttp.send(null);
         }
     </script>
-</head>
+    <H1>Customers</H1>
 
-<body class="container">
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="#" th:href="@{/customerForm}">Create Customer</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<br />
-<br />
-<H1>Customers</H1>
+    <h2>Search for: </h2>
+    <form>
+        <!--<form action="#" th:action="@{/findCustomer}" method="post">-->
+        <p>Name: <input class="searchName" oninput="myFunction(this.value)" type="text" name="searchName" id="myInput"/>
+        </p>
+        <!--<p><input type="submit" value="Submit"/></p>-->
+    </form>
 
-<h2>Search for: </h2>
-<form>
-    <!--<form action="#" th:action="@{/findCustomer}" method="post">-->
-    <p>Name: <input class="searchName" oninput="myFunction(this.value)" type="text" name="searchName" id="myInput"/>
-    </p>
-    <!--<p><input type="submit" value="Submit"/></p>-->
-</form>
-
-<table id="customerTable" class="search-table table">
-    <tr>
-        <th>ID:</th>
-        <th>Name:</th>
-        <th>Created on:</th>
-        <th>Edited on:</th>
-    </tr>
-    <tr th:each="c : ${customers}">
-        <td><b th:text="${c.id}">ID</b></td>
-        <td><span th:text="${c.firstName}">Reservation Name</span></td>
-        <td><span
+    <table id="customerTable" class="search-table table">
+        <tr>
+            <th>ID:</th>
+            <th>Name:</th>
+            <th>Created on:</th>
+            <th>Edited on:</th>
+        </tr>
+        <tr th:each="c : ${customers}">
+            <td><b th:text="${c.id}">ID</b></td>
+            <td><span th:text="${c.firstName}">Reservation Name</span></td>
+            <td><span
                 th:text="${#dates.format(new java.util.Date(c.creationDate), 'dd-MM-yyyy HH:mm:ss')}">Created On</span>
-        </td>
-        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'dd-MM-yyyy HH:mm:ss')}">Edited On</span>
-        </td>
-        <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
-        <td><a th:href="@{/editCustomer/} + ${c.id}">Edit Customer </a></td>
-    </tr>
-</table>
+            </td>
+            <td><span
+                th:text="${#dates.format(new java.util.Date(c.updatedDate), 'dd-MM-yyyy HH:mm:ss')}">Edited On</span>
+            </td>
+            <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
+            <td><a th:href="@{/editCustomer/} + ${c.id}">Edit Customer </a></td>
+        </tr>
+    </table>
 
-
+</div>
+<body class="container">
 
 </body>
 </html>
