@@ -35,12 +35,19 @@
                 var cell6 = row.insertCell(5);
                 cell1.innerHTML = customer.id;
                 cell2.innerHTML = customer.firstName;
-                cell3.innerHTML = customer.creationDate;
-                cell4.innerHTML = customer.updatedDate;
+                var creationDate = formatDate(customer.creationDate);
+                cell3.innerHTML = creationDate;
+                var updatedDate = formatDate(customer.updatedDate);
+                cell4.innerHTML = updatedDate;
 
                 addLink(cell5, '/deleteCustomer/', "Delete Customer", customer);
                 addLink(cell6, '/editCustomer/', "Edit Customer", customer);
             });
+        }
+
+        function formatDate(datum) {
+            var date = new Date(datum);
+            return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
         }
 
         function addLink(cell, url, text, customer) {
@@ -90,9 +97,9 @@
         <td><b th:text="${c.id}">ID</b></td>
         <td><span th:text="${c.firstName}">Reservation Name</span></td>
         <td><span
-                th:text="${#dates.format(new java.util.Date(c.creationDate), 'yyyy-MM-dd HH:mm:ss')}">Created On</span>
+                th:text="${#dates.format(new java.util.Date(c.creationDate), 'dd-MM-yyyy HH:mm:ss')}">Created On</span>
         </td>
-        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'yyyy-MM-dd HH:mm:ss')}">Edited On</span>
+        <td><span th:text="${#dates.format(new java.util.Date(c.updatedDate), 'dd-MM-yyyy HH:mm:ss')}">Edited On</span>
         </td>
         <td><a th:href="@{/deleteCustomer/} + ${c.id}">Delete Customer</a></td>
         <td><a th:href="@{/editCustomer/} + ${c.id}">Edit Customer </a></td>
