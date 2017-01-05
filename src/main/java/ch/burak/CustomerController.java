@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.*;
@@ -72,11 +74,16 @@ public class CustomerController {
     }
 
     @RequestMapping("/editCustomer/{id}")
-    String customerEdit(@PathVariable("id") Long id, Model model) {
+    String customerEdit(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("customer", customer);
-        System.out.println(customer.getFirstName());
-        System.out.println("edit");
+        redirectAttributes.addFlashAttribute("customer", customer);
+        return "redirect:/editCustomer";
+    }
+
+    @RequestMapping("/editCustomer")
+    String customerEditRedirect(Customer customer, Model model){
+        model.addAttribute("customer",customer);
         return "editCustomer";
     }
 
