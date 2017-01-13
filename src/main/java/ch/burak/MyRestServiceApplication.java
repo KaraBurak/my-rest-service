@@ -1,6 +1,5 @@
 package ch.burak;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +13,4 @@ public class MyRestServiceApplication {
 		SpringApplication.run(MyRestServiceApplication.class, args);
 	}
 
-	@Bean
-    CommandLineRunner initDb(CustomerRepository repo) {
-	    return strings -> {
-            repo.save(new Customer("Burak"));
-            repo.save(new Customer("Hasan"));
-            repo.save(new Customer("Urs"));
-        };
-    }
 }
