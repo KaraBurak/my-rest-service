@@ -81,7 +81,7 @@ public class CustomerControllerTest {
         HtmlButton submit = (HtmlButton) page.getElementById("input");
         submit.click();
 
-        verify(this.repo, times(2)).save(expected);
+        verify(this.repo, times(1)).save(expected);
 
     }
 }
