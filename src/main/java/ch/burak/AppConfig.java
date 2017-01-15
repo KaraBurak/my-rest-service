@@ -26,4 +26,11 @@ public class AppConfig {
         };
     }
 
+    @Profile("prod")
+    @Bean
+    CommandLineRunner init(){
+        return strings -> {
+            System.out.println("in dev profile");
+        };
+    }
 }
