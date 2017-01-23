@@ -30,7 +30,7 @@ public class AppConfig {
     @Bean
     CommandLineRunner init(){
         return strings -> {
-            System.out.println("in dev profile");
+            System.out.println("in prod profile");
         };
     }
 }
