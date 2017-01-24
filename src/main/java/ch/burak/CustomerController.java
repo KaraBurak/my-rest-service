@@ -1,13 +1,15 @@
 package ch.burak;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -21,12 +23,15 @@ import java.util.*;
 @Controller
 public class CustomerController {
 
-    private final CustomerRepository repo;
+    private final static Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
+    private final CustomerRepository repo;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerRepository repo) {
+    public CustomerController(CustomerRepository repo, CustomerService customerService) {
         this.repo = repo;
+        this.customerService = customerService;
     }
 
     @GetMapping("/index")
@@ -44,7 +49,6 @@ public class CustomerController {
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
         repo.save(customer);
-        System.out.println(customer.getFirstName());
 
         return "display";
     }
@@ -59,7 +63,9 @@ public class CustomerController {
     String customerDelete(@PathVariable("id") Long id) {
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
         repo.delete(customer);
-        System.out.println("Deleted");
+
+        logger.info("Deleted {}", customer.getId());
+
         return "redirect:/index";
     }
 
@@ -90,22 +96,7 @@ public class CustomerController {
     @RequestMapping("/findCustomer")
     String findCustomer(@RequestParam("searchName") String searchName, Model model) {
 
-        System.out.println(searchName);
-
-        List<Customer> allCustomers = repo.findAll();
-        List<Customer> allContains = new ArrayList<>();
-
-        for (Customer customer : allCustomers) {
-            if (customer.getFirstName().contains(searchName)) {
-                allContains.add(customer);
-            }
-        }
-
-
-//        List<Customer> customers = repo.findAllByFirstName(searchName);
-//        document.getElementById("demo").innerHTML = "You wrote :" + x;
-
-        model.addAttribute("customers", allContains);
+        model.addAttribute("customers", customerService.findByName(searchName));
         return "customers";
     }
 

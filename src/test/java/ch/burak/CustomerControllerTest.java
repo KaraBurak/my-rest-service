@@ -1,12 +1,9 @@
 package ch.burak;
 
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,6 +37,9 @@ public class CustomerControllerTest {
 
     @MockBean
     CustomerRepository repo;
+
+    @MockBean
+    CustomerService service;
 
     @Test
     public void getIndexTest() throws Exception {
@@ -81,7 +81,7 @@ public class CustomerControllerTest {
         HtmlButton submit = (HtmlButton) page.getElementById("input");
         submit.click();
 
-        verify(this.repo, times(2)).save(expected);
+        verify(this.repo, times(1)).save(expected);
 
     }
 }
