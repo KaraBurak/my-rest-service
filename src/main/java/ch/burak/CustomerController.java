@@ -1,5 +1,7 @@
 package ch.burak;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,9 +23,10 @@ import java.util.*;
 @Controller
 public class CustomerController {
 
+    private final static Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     private final CustomerRepository repo;
     private final CustomerService customerService;
-
 
     @Autowired
     public CustomerController(CustomerRepository repo, CustomerService customerService) {
@@ -46,7 +49,6 @@ public class CustomerController {
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
         repo.save(customer);
-        System.out.println(customer.getFirstName());
 
         return "display";
     }
@@ -61,7 +63,9 @@ public class CustomerController {
     String customerDelete(@PathVariable("id") Long id) {
         Customer customer = repo.findById(id).orElseThrow(ResourceNotFoundException::new);
         repo.delete(customer);
-        System.out.println("Deleted");
+
+        logger.info("Deleted {}", customer.getId());
+
         return "redirect:/index";
     }
 
