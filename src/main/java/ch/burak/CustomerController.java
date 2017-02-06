@@ -48,9 +48,13 @@ public class CustomerController {
 
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
-        repo.save(customer);
-
-        return "display";
+        if(customer.getFirstName() != null && customer.getFirstName() != ""){
+            repo.save(customer);
+            logger.info("created {}", customer.getFirstName());
+            return "display";
+        }
+        logger.info("Null in CustomerForm");
+        return "customerForm";
     }
 
     @GetMapping("/about")
