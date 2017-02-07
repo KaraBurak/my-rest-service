@@ -48,7 +48,7 @@ public class CustomerController {
 
     @PostMapping("/displayCustomer")
     String customerSubmit(@ModelAttribute Customer customer) {
-        if(customer.getFirstName() != null && customer.getFirstName() != ""){
+        if(customer.getFirstName() != null && !customer.getFirstName().isEmpty()){
             repo.save(customer);
             logger.info("created {}", customer.getFirstName());
             return "display";
