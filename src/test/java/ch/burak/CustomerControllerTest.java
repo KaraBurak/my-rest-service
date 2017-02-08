@@ -75,6 +75,8 @@ public class CustomerControllerTest {
     public void createCustomerTest() throws Exception {
         Customer expected = new Customer("Burak");
 
+        login();
+
         HtmlPage page = this.client.getPage("/customerForm");
         HtmlForm htmlForm = page.getForms().get(0);
         htmlForm.getInputByName("firstName").setValueAttribute(expected.getFirstName());
@@ -84,4 +86,14 @@ public class CustomerControllerTest {
         verify(this.repo, times(1)).save(expected);
 
     }
+
+    public void login() throws Exception{
+        HtmlPage login = this.client.getPage("/login");
+        HtmlForm loginhtmlform = login.getForms().get(0);
+        loginhtmlform.getInputByName("username").setValueAttribute("b");
+        loginhtmlform.getInputByName("password").setValueAttribute("b");
+        HtmlButton loginSubmit = (HtmlButton) login.getElementById("input");
+        loginSubmit.click();
+    }
+
 }
