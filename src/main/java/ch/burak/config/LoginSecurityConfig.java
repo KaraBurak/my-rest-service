@@ -19,7 +19,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.authorizeRequests().antMatchers("/customerForm").authenticated().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/customerForm","/customerForm.html").authenticated().anyRequest().authenticated();
 //        http.authorizeRequests().antMatchers("/**").authenticated().anyRequest().authenticated(); <--- mit bootstrap funktionieren wäre ziel but nooooooo it doesnt
         http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 
